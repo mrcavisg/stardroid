@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Nákvæmari reiknirit fyrir sól og tungl</font></b>
+Settum inn nútímalegra reiknirit fyrir stöðu sólar/tungls til að gera tímasetningar myrkva enn nákvæmari.

@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Mer exakt algoritm för sol och måne</font></b>
+Installerat en modernare algoritm för solens/månens position för att göra förmörkelsestiderna ännu mer exakta.

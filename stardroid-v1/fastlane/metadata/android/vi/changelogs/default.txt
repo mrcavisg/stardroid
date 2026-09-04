@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Thuật toán Mặt Trời và Mặt Trăng chính xác hơn</font></b>
+Đã cài đặt một thuật toán hiện đại hơn cho vị trí Mặt Trời/Mặt Trăng để làm cho thời gian nhật thực/nguyệt thực chính xác hơn nữa.

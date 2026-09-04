@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Algoritmo più preciso per Sole e Luna</font></b>
+Installato un algoritmo più moderno per la posizione di Sole/Luna per rendere le tempistiche delle eclissi ancora più precise.

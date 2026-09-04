@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Tiksliau veikiantis Saulės ir Mėnulio algoritmas</font></b>
+Įdiegtas šiuolaikiškesnis Saulės ir Mėnulio padėties algoritmas, kad užtemimų laikas būtų dar tikslesnis.

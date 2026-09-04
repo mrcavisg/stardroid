@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Algoritmo máis preciso para o sol e a lúa</font></b>
+Instalouse un algoritmo máis moderno para a posición do Sol/Lúa para facer que os tempos dos eclipses sexan aínda máis precisos.

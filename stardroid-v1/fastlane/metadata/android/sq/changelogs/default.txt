@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Algoritëm më i saktë i diellit dhe hënës</font></b>
+Instaluam një algoritëm më modern për pozicionin e Diellit/Hënës për t'i bërë kohët e eklipseve edhe më të sakta.

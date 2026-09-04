@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Täpsem päikese ja kuu algoritm</font></b>
+Paigaldati moodsam algoritm Päikese/Kuu asukoha määramiseks, et muuta varjutuste ajastused veelgi täpsemaks.

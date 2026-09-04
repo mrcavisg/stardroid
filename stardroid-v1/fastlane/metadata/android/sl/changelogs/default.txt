@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Natančnejši algoritem za Sonce in Luno</font></b>
+Namestili smo sodobnejši algoritem za položaj Sonca/Lune, da so časi mrkov še natančnejši.

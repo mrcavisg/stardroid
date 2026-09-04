@@ -14,9 +14,10 @@
 
 ## Checklist
 
-- [ ] I've read the [contributing guidelines](../CONTRIBUTING.md)
+- [ ] I've read the [contributing guidelines](../../CONTRIBUTING.md)
 - [ ] For major changes, I've emailed skymapdevs@gmail.com first
-- [ ] I've run the unit tests with `./gradlew :app:test`
+- [ ] I've run the unit tests (`./gradlew check` from `stardroid-v2/`, or `./gradlew :app:test`
+      from `stardroid-v1/`, matching whichever module this PR touches)
 - [ ] I've tested on a device/emulator if applicable
 - [ ] If I have multiple commits, I've squashed them into one
 

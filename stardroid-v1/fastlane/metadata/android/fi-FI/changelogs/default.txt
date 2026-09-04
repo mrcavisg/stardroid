@@ -1,0 +1,1 @@
+<b><font color="#F67E81">Tarkempi Auringon ja Kuun algoritmi</font></b>Asennettu nykyaikaisempi algoritmi Auringon ja Kuun sijainnin laskemiseen, jotta pimennysten ajoitukset olisivat entistä tarkempia.

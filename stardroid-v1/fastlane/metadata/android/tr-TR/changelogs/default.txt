@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Daha doğru güneş ve ay algoritması</font></b>
+Güneş/Ay konumu için daha modern bir algoritma yüklendi, böylece tutulma zamanlamaları daha da doğru hale geldi.

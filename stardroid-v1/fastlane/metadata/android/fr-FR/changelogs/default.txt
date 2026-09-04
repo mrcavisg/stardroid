@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Algorithme plus précis pour le Soleil et la Lune</font></b>
+Implémentation d'un algorithme plus moderne pour la position du Soleil et de la Lune afin de rendre les prévisions d'éclipses encore plus précises.

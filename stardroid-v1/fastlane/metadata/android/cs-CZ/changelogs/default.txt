@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Přesnější algoritmus pro Slunce a Měsíc</font></b>
+Nainstalovali jsme modernější algoritmus pro polohu Slunce a Měsíce, aby bylo načasování zatmění ještě přesnější.

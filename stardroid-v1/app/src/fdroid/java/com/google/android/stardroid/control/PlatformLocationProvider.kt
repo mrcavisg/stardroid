@@ -1,0 +1,93 @@
+/*
+ * Copyright (c) 2026 Penterakt LLC.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
+
+package com.google.android.stardroid.control
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.os.Build
+import android.os.Bundle
+import android.util.Log
+import com.google.android.stardroid.math.LatLong
+import com.google.android.stardroid.util.MiscUtil
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+
+class PlatformLocationProvider @Inject constructor(
+    @ApplicationContext private val context: Context
+) : LocationProvider {
+
+    private val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    private var activeListeners = mutableListOf<LocationListener>()
+    private var updateCallback: ((LatLong, Float?) -> Unit)? = null
+
+    @SuppressLint("MissingPermission")
+    override fun startUpdates(minDistanceMetres: Float, onUpdate: (LatLong, Float?) -> Unit) {
+        stopUpdates()
+        updateCallback = onUpdate
+
+        for (provider in coarseProviders()) {
+            if (!locationManager.isProviderEnabled(provider)) continue
+            val listener = createListener(onUpdate)
+            try {
+                locationManager.requestLocationUpdates(provider, 0L, minDistanceMetres, listener)
+                activeListeners.add(listener)
+            } catch (_: IllegalArgumentException) {
+                // Provider not supported on this device
+                Log.w(TAG, "Provider $provider not supported on this device")
+            } catch (_: SecurityException) {
+                // App only holds ACCESS_COARSE_LOCATION; should not happen for the providers
+                // in coarseProviders(), but guard against it regardless.
+                Log.w(TAG, "Not permitted to request updates from provider $provider")
+            }
+        }
+    }
+
+    private fun createListener(onUpdate: (LatLong, Float?) -> Unit): LocationListener {
+        return object : LocationListener {
+            override fun onLocationChanged(location: Location) {
+                val accuracy = if (location.hasAccuracy()) location.accuracy else null
+                onUpdate(LatLong(location.latitude, location.longitude), accuracy)
+            }
+
+            @Deprecated("Deprecated in Java")
+            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+        }
+    }
+
+    override fun stopUpdates() {
+        activeListeners.forEach { locationManager.removeUpdates(it) }
+        activeListeners.clear()
+        updateCallback = null
+    }
+
+    override fun isAvailable(): Boolean {
+        return coarseProviders().any { locationManager.isProviderEnabled(it) }
+    }
+
+    /**
+     * GPS_PROVIDER always requires ACCESS_FINE_LOCATION, which this app never requests, so it
+     * must not be used. FUSED_PROVIDER (API 31+) blends every available source, including GPS,
+     * and the platform automatically coarsens its output to match the app's granted permission.
+     */
+    private fun coarseProviders(): List<String> {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            listOf(LocationManager.FUSED_PROVIDER)
+        } else {
+            listOf(LocationManager.NETWORK_PROVIDER)
+        }
+    }
+
+    companion object {
+        private val TAG = MiscUtil.getTag(PlatformLocationProvider::class.java)
+    }
+}

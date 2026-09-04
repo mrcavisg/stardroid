@@ -5,7 +5,455 @@ All notable changes to Sky Map are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased] - 2026-03-24
+## [2.0.1:Apollo] (v2) - 2026-09-03
+
+<img src="stardroid-v2/assets/release-icons/2.0.1_apollo_icon.png" width="80" alt="Apollo" />
+
+### Fixed
+- Fixed a crash on app start for the Greek locale caused by a malformed RA value format string.
+
+---
+
+## [2.0.0:Apollo] (v2) - 2026-09-02
+
+<img src="stardroid-v2/assets/release-icons/2.0.0_apollo_icon.png" width="80" alt="Apollo" />
+
+First stable release of the Sky Map v2 rewrite.
+
+### Added
+- Human-reviewed and improved French and Italian UI translations.
+- Matariki added as a searchable alias for the Pleiades (M45).
+
+### Fixed
+- M65/M66 no longer lose their primary catalog label to the shared Leo Triplet alias.
+- The horizon leveller keeps running until a fling actually stops, instead of stopping early.
+- The warm welcome and terms screens now lay out correctly in landscape.
+
+### Changed
+- Catalog text now follows the app's selected language, not just resource strings.
+
+---
+
+## [2.0.0-beta07:Louise] (v2) - 2026-08-31
+
+<img src="stardroid-v2/assets/release-icons/2.0.0-beta07_louise_icon.png" width="80" alt="Louise" />
+
+_Pre-release development build of the Sky Map v2 rewrite, not a stable release._
+
+### Added
+- Full translation coverage across all 28 core languages.
+- Per-app language support (`android:localeConfig`), letting users pick Sky Map's language
+  independently of the device's system language on Android 13+.
+
+---
+
+## [2.0.0-beta06:Louise] (v2) - 2026-08-30
+
+<img src="stardroid-v2/assets/release-icons/2.0.0-beta06_louise_icon.png" width="80" alt="Louise" />
+
+_Pre-release development build of the Sky Map v2 rewrite, not a stable release._
+
+### Changed
+- Disabled all optional-feature experiment gates by default (notifications, satellites,
+  moon/tonight widgets, camera AR, share-sky) pending further validation.
+
+---
+
+## [2.0.0-beta05:Louise] (v2) - 2026-08-29
+
+_Pre-release development build of the Sky Map v2 rewrite, not a stable release._
+
+### Added
+- Spanish and Polish translations, synced through the translation pipeline (#966).
+- Portuguese translation (#967).
+
+---
+
+## [2.0.0-beta03:Hannah] (v2) - 2026-08-25
+
+_Pre-release development build of the Sky Map v2 rewrite, not a stable release._
+
+### Added
+- French translation — the first localization shipped in the v2 rewrite.
+
+---
+
+## [2.0.0-beta02:Hannah] (v2) - 2026-08-24
+
+_Pre-release development build of the Sky Map v2 rewrite, not a stable release._
+
+### Added
+- Optional notifications: meteor shower peak alerts and a one-time evening "tonight's sky"
+  digest, configurable in Settings (D77). Ships on by default in this build.
+- Lunar eclipse astronomy: geocentric shadow-cone geometry, umbra/penumbra separation, and a
+  `nextLunarEclipse` search that also finds an eclipse already in progress (D106).
+- Lunar eclipse rendering: copper-red umbra tint and penumbral dimming on the GLES1 map backend,
+  recomposited as an eclipse progresses (D106).
+- Lunar eclipses now surface in the Moon's info-card, the tonight/digest highlights, the
+  countdown widget, and the time-travel picker, with an opt-in reminder notification
+  (`CHANNEL_ECLIPSES`) (D106).
+- Satellite tracking: TLE parsing, SGP4 propagation, CelesTrak fetch with caching and a circuit
+  breaker, pass search/visibility, a map layer, pass alerts, and an object-info pass row
+  (D92, D93-D103). Ships off by default in this build pending public rollout.
+- Device permissions are now disclosed on the Terms screen, in Help, and on the Play Store
+  listing.
+- Refreshed Play Store assets and launcher icon (D104).
+- A Diagnostics "Graphics" section that can be emailed to the developers (debug builds).
+- Design doc proposing a GLES3 renderer port (proposed only, no code).
+
+### Fixed
+- A security/robustness audit (`audit-2026-08`) closed several issues, including: bounding and
+  freeing bitmaps on the share path, capping the CelesTrak response body read, re-arming pass
+  alerts across a reboot, moving `PassAlertReceiver`'s opt-in check off `runBlocking`, and
+  guarding `SatellitePassNotifier`'s `notify()` call for lint.
+- The renderer perf gate now anchors on the first real frame instead of a fixed sleep, removing
+  a source of flaky CI runs.
+- Camera-share accuracy fix; the `ko` locale-only regression from the previous release.
+
+### Changed
+- The gms build no longer requests the advertising-ID permission, which it didn't use.
+
+---
+
+## [2.0.0-beta01:Hannah] (v2) - 2026-08-16
+
+_Pre-release development build of the Sky Map v2 rewrite, not a stable release._
+
+### Added
+- Upgrading from v1 (or from an older v2 build) now shows the What's New dialog, so returning
+  and newly-upgraded users see what changed instead of landing straight in the map.
+- The Warm Welcome tour is shown again to existing v2 testers upgrading to this release, since
+  2.0.0 is a substantial enough update to re-introduce itself.
+- A new `upgraded_to_v2_ev` analytics event fires once for devices with v1 history, to track
+  the v1-to-v2 migration.
+
+### Fixed
+- Camera panning, fling momentum, the horizon leveler and the search zoom now step on the
+  display's actual frame clock instead of a fixed 20 Hz pump, fixing a stutter on high
+  refresh-rate screens where five out of every six frames were duplicates
+  (sky-map-team/stardroid#959).
+- The What's New dialog no longer gets silently suppressed for upgraders who also need the
+  re-shown Warm Welcome tour.
+
+### Changed
+- The Warm Welcome background is a fresh in-app capture instead of the earlier cluttered image.
+- The What's New dialog now leads with the support/beta-feedback text ahead of the release
+  notes, so a long feature list can't push it below the fold. When both the Warm Welcome tour
+  and What's New are pending, What's New always shows first.
+
+---
+
+## [2.0.0-alpha07:Apollo] (v2) - 2026-08-14
+
+_Pre-release development build of the Sky Map v2 rewrite, not a stable release._
+
+### Added
+- Planets can be drawn at their true angular size instead of fixed glyphs, selectable from the
+  Layers sheet (glyphs remain the default, so the map opens looking as v1 did).
+- A high-precision Meeus ephemeris for the Sun and Moon, returned in the J2000 frame the app
+  draws in.
+
+### Changed
+- The solar-system discs have been re-derived from their original NASA imagery, with each disc's
+  limb found by its half-maximum contour rather than a brightness threshold.
+- The Moon's terminator is now computed from the real illumination geometry instead of being
+  baked into eight fixed bitmaps, so the phase is continuous and correct.
+- Image textures are now blended, mipmapped and cached rather than alpha-tested, which removes
+  the hard edges and aliasing on planet and deep-sky imagery.
+
+### Fixed
+- Eclipse timing, which was wrong because of Sun and Moon position errors
+  (sky-map-team/stardroid#957).
+- The HUD field-of-view readout jittered between values instead of holding a stable precision.
+- Faint planets lost their labels at the magnitude cutoff.
+- The label-size hint re-showed on every return to the map.
+- Restored a dedicated single-star icon for the Warm Welcome page dots.
+- Clarified the wording in the Layers sheet.
+
+---
+
+## [2.0.0-alpha05:Apollo] (v2) - 2026-08-08
+
+_Pre-release development build of the Sky Map v2 rewrite, not a stable release._
+
+### Fixed
+- Corrected the initial map zoom level, which had opened roughly four times wider than intended,
+  showing far more sky than v1's equivalent view.
+- The on-screen map controls (chrome) no longer auto-hide until the user has hidden them once
+  themselves, so first-run users can find their way around before the controls disappear.
+- Chrome show/hide is now a directional slide toward each control zone's own screen edge, and
+  this slide direction is now correctly mirrored for right-to-left languages (Arabic, Persian).
+
+### Added
+- The HUD (coordinate readout) can now be toggled on or off from the Layers sheet.
+
+---
+
+## [2.0.0-alpha04:Apollo] (v2) - 2026-08-05
+
+_Pre-release development build of the Sky Map v2 rewrite, not a stable release._
+
+### Changed
+- Sky Map has been rebuilt from the ground up with a modern rendering and data pipeline and a
+  refreshed UI.
+
+---
+
+## [2.0.0-alpha02:Apollo] (v2) - 2026-07-23
+
+_Pre-release development build of the Sky Map v2 rewrite, not a stable release._
+
+### Changed
+- Complete rewrite of Sky Map from the ground up: a modern rendering and data pipeline,
+  redesigned location handling, coordinate search, time travel, info cards, and a refreshed
+  gallery.
+
+---
+
+## [1.18.1] Eclipse - 2026-08-13
+
+<img src="stardroid-v1/assets/splashscreens/1_18_0_eclipse_icon.png" width="80" alt="Eclipse" />
+
+### Fixed
+- Sun and Moon position accuracy: the Moon's low-precision D22 series (~0.3°) is replaced with the full Meeus ch. 47 series (ELP2000-82 truncated), and the Sun's truncated Keplerian elements (~0.37° off, no aberration/nutation) are replaced with its Meeus ch. 25 apparent position (~0.01°). Both now run on Terrestrial Time via a shared `TimeUtils.julianCenturiesTerrestrial` and in double precision throughout. Eclipse maximum timing, previously off by up to ~30 minutes, now matches published times to within a minute ([#958](https://github.com/sky-map-team/stardroid/pull/958), [#957](https://github.com/sky-map-team/stardroid/issues/957))
+
+## [1.18.0] Eclipse - 2026-08-09
+
+<img src="stardroid-v1/assets/splashscreens/1_18_0_eclipse_icon.png" width="80" alt="Eclipse" />
+
+Together, the two `#954` changes below let you preview how much of the Sun will be obscured from
+your location during a solar eclipse, including the total eclipse of 12 August 2026.
+
+### Added
+- A **Show true-to-life sizes** setting (off by default) that renders the Sun, Moon, and planets at their real computed angular size instead of the fixed, exaggerated-for-visibility constants, so eclipses render to scale. Size is recomputed every frame — decoupled from the per-body position-update throttle — so the setting takes effect immediately and the Moon's size tracks its continuously changing distance ([#954](https://github.com/sky-map-team/stardroid/pull/954))
+
+### Fixed
+- The Moon's position used only geocentric coordinates, ignoring the observer's location on Earth (diurnal parallax) and causing errors of up to ~1° — roughly two lunar diameters. Added `Universe`/`Moon.getTopocentricRaDec` and switched the renderer to use it ([#954](https://github.com/sky-map-team/stardroid/pull/954))
+- Overlapping sky map labels are now detected and offset, keeping crowded regions readable ([#944](https://github.com/sky-map-team/stardroid/pull/944), [#764](https://github.com/sky-map-team/stardroid/issues/764))
+- Deep-sky object icons sporadically failed to render: `ImageObjectManager` only sized its texture arrays in the `fullReload` branch of `reload()`, but layers loading data asynchronously take the partial path ([#952](https://github.com/sky-map-team/stardroid/pull/952))
+- Vega's Simplified Chinese label identified it as Alpha Aquilae (`天鹰座 α`) rather than Alpha Lyrae (`天琴座 α`) ([#951](https://github.com/sky-map-team/stardroid/pull/951))
+
+### Changed
+- Redrew the stars and constellations sidebar icons, which previously reused the platform favorite and share glyphs and were easy to confuse ([#955](https://github.com/sky-map-team/stardroid/pull/955))
+- Removed the dead `show_planetary_images` point-primitive fallback path, which had no UI ever wired to it ([#954](https://github.com/sky-map-team/stardroid/pull/954))
+
+## [1.17.1] Neptune - 2026-07-30
+
+<img src="stardroid-v1/assets/splashscreens/1_17_1_neptune_icon.png" width="80" alt="Neptune" />
+
+### Fixed
+- Broken strings in several localizations ([#950](https://github.com/sky-map-team/stardroid/pull/950))
+
+## [1.17.0] Neptune - 2026-07-28
+
+<img src="stardroid-v1/assets/splashscreens/1_17_0_neptune_icon.png" width="80" alt="Neptune" />
+
+### Fixed
+- Startup crash when `GPS_PROVIDER` was requested without `ACCESS_FINE_LOCATION` permission ([#948](https://github.com/sky-map-team/stardroid/pull/948))
+
+### Added
+- Build flavor label (Gms/F-Droid) on the Diagnostics screen version row ([#949](https://github.com/sky-map-team/stardroid/pull/949))
+
+### Announcement
+- Sky Map v2, a complete rewrite, is nearly ready — beta sign-ups are opening soon
+
+## [1.16.2] Caelus - 2026-07-18
+
+<img src="stardroid-v1/assets/splashscreens/1_16_2_caelus_icon.png" width="80" alt="Caelus" />
+
+### Added
+- Galician (gl) language translation ([#935](https://github.com/sky-map-team/stardroid/pull/935))
+
+### Fixed
+- Place lookup is now disabled when the geocoder backend is unavailable, instead of failing silently ([#942](https://github.com/sky-map-team/stardroid/pull/942), [#943](https://github.com/sky-map-team/stardroid/pull/943))
+- Crash (NPE) when GPS is enabled but Google Play Services location is unresolvable ([#941](https://github.com/sky-map-team/stardroid/pull/941))
+- Intermittent NPE in `PolyLineObjectManager` by snapshotting layer primitive lists ([#940](https://github.com/sky-map-team/stardroid/pull/940))
+
+## [1.16.1] Caelus - 2026-07-06
+
+<img src="stardroid-v1/assets/splashscreens/1_16_1_caelus_icon.png" width="80" alt="Caelus" />
+
+### Added
+- Graduated degree scale on the ecliptic, and increased ecliptic visibility ([#923](https://github.com/sky-map-team/stardroid/pull/923))
+- Close button on the info card for classic 3-button navigation users, who previously had no visible way to dismiss it ([#932](https://github.com/sky-map-team/stardroid/pull/932))
+- Split-license structure to protect the Sky Map brand from ad-stuffed clones on the Play Store ([#934](https://github.com/sky-map-team/stardroid/pull/934))
+
+### Changed
+- Horizon line is now green with a fade-out underneath, instead of yellow ([#924](https://github.com/sky-map-team/stardroid/pull/924))
+- Refreshed the overall color scheme ([#925](https://github.com/sky-map-team/stardroid/pull/925))
+- Info-card taps are now restricted to the card's central region, with a capped card height ([#922](https://github.com/sky-map-team/stardroid/pull/922))
+
+### Fixed
+- Label flickering when the phone points near the zenith or nadir, by freezing the text angle near either pole ([#919](https://github.com/sky-map-team/stardroid/pull/919), [#920](https://github.com/sky-map-team/stardroid/pull/920))
+- Oversized/misaligned icons in the overflow menu ([#927](https://github.com/sky-map-team/stardroid/pull/927), [#928](https://github.com/sky-map-team/stardroid/pull/928), [#930](https://github.com/sky-map-team/stardroid/pull/930))
+- Deprecated `shouldOverrideUrlLoading` migrated to `WebResourceRequest` in dialog fragments ([#929](https://github.com/sky-map-team/stardroid/pull/929))
+
+## [1.16.0] Caelus - 2026-06-19
+
+<img src="stardroid-v1/assets/splashscreens/1_16_0_caelus_icon.png" width="80" alt="Caelus" />
+
+### Changed
+- Adjusted the sky color scheme for better contrast and readability (#925)
+- Improved horizon rendering (#924)
+- Highlighted the ecliptic and added a graduated degree scale (#923)
+- Restricted info-card taps to the central region and capped card height (#922)
+
+### Fixed
+- Extended text angle freeze to nadir (phone pointing straight down) to prevent label flickering (#919, #920)
+
+---
+
+## [1.15.5] Saturn - 2026-06-12
+
+<img src="stardroid-v1/assets/splashscreens/1_15_5_saturn_icon.png" width="80" alt="Saturn" />
+
+### Fixed
+- Fix welcome screen buttons hidden by system navigation bar on Android 15+ (#916, #918)
+- Don't show What's New dialog on fresh installs, only on upgrades (#917)
+
+---
+
+## [1.15.4] Saturn - 2026-06-11
+
+<img src="stardroid-v1/assets/splashscreens/1_15_4_saturn_icon.png" width="80" alt="Saturn" />
+
+### Fixed
+- Freeze text angle near zenith to prevent label flickering (#914)
+
+---
+
+## [1.15.3] Saturn - 2026-06-11
+
+<img src="stardroid-v1/assets/splashscreens/1_15_3_saturn_icon.png" width="80" alt="Saturn" />
+
+### Changed
+- Renamed compass 'Accuracy' to 'Calibration: Good/OK/Poor' in the UI for clarity (#911)
+
+---
+
+## [1.15.2] Saturn - 2026-06-08
+
+<img src="stardroid-v1/assets/splashscreens/1_15_2_saturn_icon.png" width="80" alt="Saturn" />
+
+### Added
+- Search by RA/Dec coordinates as well as by object name (#905)
+
+### Fixed
+- Manual location entry now works correctly for locales that use a comma as the decimal separator (#909)
+
+---
+
+## [1.15.1] Saturn - 2026-06-03
+
+<img src="stardroid-v1/assets/splashscreens/1_15_1_saturn_icon.png" width="80" alt="Saturn" />
+
+### Changed
+- **Compass/calibration messaging** — clearer language distinguishes hardware sensor issues from
+  app problems, reducing confusion for users with compass-less devices
+- **Saturn splash screen** — updated release artwork for 1.15.1
+
+### Fixed
+- Translation gaps filled for Polish, Chinese (Simplified & Traditional), Welsh, and Japanese
+
+---
+
+## [1.15.0] Saturn - 2026-05-22
+
+<img src="stardroid-v1/assets/splashscreens/1_15_0_saturn_icon.png" width="80" alt="Saturn" />
+
+### Added
+- **New user onboarding** — a 3-slide warm welcome flow guides first-time users through sensor
+  verification (with haptic feedback) and location setup before entering the star map
+  ([#853](https://github.com/sky-map-team/stardroid/pull/853),
+  [#857](https://github.com/sky-map-team/stardroid/pull/857),
+  [#866](https://github.com/sky-map-team/stardroid/pull/866),
+  [#870](https://github.com/sky-map-team/stardroid/pull/870),
+  [#871](https://github.com/sky-map-team/stardroid/pull/871),
+  [#882](https://github.com/sky-map-team/stardroid/pull/882))
+- **Location map** — the location settings screen now shows a map (via MapTiler) so you can
+  visually confirm your position
+  ([#865](https://github.com/sky-map-team/stardroid/pull/865),
+  [#887](https://github.com/sky-map-team/stardroid/pull/887))
+- **Search by RA/Dec** — you can now search for a sky position by entering right ascension and
+  declination coordinates directly
+- **A/B experiment framework** — runtime experiment configuration via Firebase Remote Config
+  (gms) and hardcoded defaults (fdroid) enables feature rollouts without app updates
+  ([#869](https://github.com/sky-map-team/stardroid/pull/869))
+
+### Changed
+- **Location handling rewrite** — state-driven architecture replaces the old ad-hoc approach;
+  all location states now have human-readable diagnostic strings, a progress spinner appears
+  while the position is resolving, and locale-aware coordinate entry is enforced
+  ([#850](https://github.com/sky-map-team/stardroid/pull/850))
+- **Search overlay feedback** — the overlay updates to "Found: X" when the target enters the
+  centre of the screen
+  ([#820](https://github.com/sky-map-team/stardroid/pull/820))
+
+### Fixed
+- WebView link taps in Credits, EULA, Help, and What's New dialogs are now guarded with
+  try/catch to prevent crashes on external `startActivity` calls
+  ([#877](https://github.com/sky-map-team/stardroid/pull/877),
+  [#892](https://github.com/sky-map-team/stardroid/pull/892))
+- Map colour and loading spinner issues resolved
+  ([#889](https://github.com/sky-map-team/stardroid/pull/889),
+  [#890](https://github.com/sky-map-team/stardroid/pull/890))
+- Haptic feedback during warm welcome no longer fires when system touch feedback is disabled
+  ([#888](https://github.com/sky-map-team/stardroid/pull/888))
+
+---
+
+## [1.14.2] Jupiter - 2026-05-05
+
+<img src="stardroid-v1/assets/splashscreens/1_14_2_jupiter_icon.png" width="80" alt="Jupiter" />
+
+### Added
+- **Virtual objects** — Jupiter's Galilean moons (Io, Europa, Ganymede, Callisto) and Mars's
+  moons (Phobos and Deimos) are now searchable with rich info cards and NASA imagery, without
+  appearing as separate points on the star map
+  ([#809](https://github.com/sky-map-team/stardroid/pull/809),
+  [#813](https://github.com/sky-map-team/stardroid/pull/813),
+  [#817](https://github.com/sky-map-team/stardroid/pull/817))
+- **Expanded deep sky catalog** — dozens of new objects added including the Double Cluster,
+  47 Tucanae, the Exposed Cranium Nebula (PMR 1), Brocchi's Cluster and many more, each with
+  descriptions, fun facts, distances and images
+  ([#801](https://github.com/sky-map-team/stardroid/pull/801),
+  [#805](https://github.com/sky-map-team/stardroid/pull/805),
+  [#806](https://github.com/sky-map-team/stardroid/pull/806),
+  [#823](https://github.com/sky-map-team/stardroid/pull/823))
+- **Smarter search overlay** — the overlay now shows "Found: X" when you've centered your
+  phone on the target, replacing the generic pointer prompt
+  ([#820](https://github.com/sky-map-team/stardroid/pull/820))
+
+### Fixed
+- See-also links in the image gallery now open the correct info card instead of dismissing
+  ([#825](https://github.com/sky-map-team/stardroid/pull/825),
+  [#830](https://github.com/sky-map-team/stardroid/pull/830))
+- Gallery and info cards no longer clip on Android 15+ edge-to-edge displays
+  ([#819](https://github.com/sky-map-team/stardroid/pull/819),
+  [#822](https://github.com/sky-map-team/stardroid/pull/822))
+- Info card "Find" button is now hidden when a card is opened from the star map (already found)
+  ([#807](https://github.com/sky-map-team/stardroid/pull/807),
+  [#810](https://github.com/sky-map-team/stardroid/pull/810))
+- Translation corrections: Thai Draco term, Hindi Crux character, French celestial glossary
+  ([#827](https://github.com/sky-map-team/stardroid/pull/827),
+  [#829](https://github.com/sky-map-team/stardroid/pull/829),
+  [#831](https://github.com/sky-map-team/stardroid/pull/831))
+
+---
+
+## [1.13.4] Mars - 2026-04-16
+
+<img src="stardroid-v1/assets/splashscreens/1_13_4_mars_icon.png" width="80" alt="Mars" />
+
+### Added
+- **Sky gradient toggle** — a new Settings option lets you enable or disable the sky gradient
+  background ([#795](https://github.com/sky-map-team/stardroid/pull/795))
+
+---
+
+## [1.13.3] Mars - 2026-04-12
+
+<img src="stardroid-v1/assets/splashscreens/1_13_3_mars_icon.png" width="80" alt="Mars" />
 
 ### Added
 - **Two black holes** — Cygnus X-1 and Sagittarius A* are now in the Sky Map catalog
@@ -14,6 +462,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   overflow menu, making it discoverable without knowing the toolbar icon; icons added to all
   overflow menu items
   ([#770](https://github.com/sky-map-team/stardroid/pull/770))
+- **Double-tap to freeze/unfreeze auto-level horizon** — in manual mode, a double-tap now
+  toggles horizon leveling on/off without opening Settings; the preference is still available
+  for users who want a persistent setting
+  ([#788](https://github.com/sky-map-team/stardroid/pull/788))
 
 ### Changed
 - **Gallery redesigned** — replaced the sideways-scrolling list with a grid layout that
@@ -23,10 +475,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - **"Messier objects" renamed to "Deep sky objects"** — the catalog of nebulae, clusters, and
   galaxies is now labelled more accurately throughout the app
   ([#772](https://github.com/sky-map-team/stardroid/pull/772))
+- **EULA shortened** — the in-app EULA is now a friendly summary with a link to the full text;
+  translated into core languages
+- **Translations** — Brazilian Portuguese help, EULA, and info cards updated
+  ([#783](https://github.com/sky-map-team/stardroid/pull/783)); Polish HTML formatting fixed
+  ([#781](https://github.com/sky-map-team/stardroid/pull/781)); language-apology strings
+  removed for primary languages that are now nearly fully translated
+
+### Fixed
+- **Info cards not responding to taps** — fixed a scoping bug that broke tap-to-navigate on
+  info cards
+- **Night mode not applied to overflow menu** — menu items now correctly use night-mode colours
+  ([#780](https://github.com/sky-map-team/stardroid/pull/780))
 
 ---
 
-## [1.12.3] - 2026-03-24
+## [1.12.3] Earth - 2026-03-24
+
+<img src="stardroid-v1/assets/splashscreens/1_12_3_earth_icon.png" width="80" alt="Earth" />
 
 ### Added
 - **Willman 1 (Beth Willman Galaxy)** added to the star catalog — an ultra-faint dwarf satellite
@@ -79,9 +545,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - **Brought all previously "fully translated" languages back to 100% coverage**
 - **Localized credits files added** for translated locales
 
-## [1.12.0] - 2026-03-01
+## [1.12.0] Earth - 2026-03-01
 
-_Earth release._
+<img src="stardroid-v1/assets/splashscreens/1_12_0_earth_icon.png" width="80" alt="Earth" />
 
 ### Added
 - **Celestial images in info cards** — all 145 objects (planets, stars, constellations, and Messier
@@ -110,7 +576,9 @@ _Earth release._
   UI updates attempted after the activity was destroyed
   ([#667](https://github.com/sky-map-team/stardroid/issues/667))
 
-## [1.11.1] - 2026-02-23
+## [1.11.1] Venus - 2026-02-23
+
+<img src="stardroid-v1/assets/splashscreens/1_11_1_venus_icon.png" width="80" alt="Venus" />
 
 ### Added
 - **Credits dialog** — new entry in the main menu lists sponsors and contributors, rendered in the
@@ -134,8 +602,8 @@ _Earth release._
 - CONTRIBUTING.md with build instructions, coding style, and submission workflow
 - SECURITY.md with vulnerability reporting policy
 - CHANGELOG.md following Keep a Changelog format
-- docs/ARCHITECTURE.md with module structure, rendering pipeline, and Mermaid diagram
-- docs/design/README.md index for design documents
+- stardroid-v1/docs/ARCHITECTURE.md with module structure, rendering pipeline, and Mermaid diagram
+- stardroid-v1/docs/design/README.md index for design documents
 - GitHub issue templates (bug report and feature request) as YAML forms
 - Changelog update instructions in CONTRIBUTING.md and PR template
 
@@ -152,10 +620,10 @@ _Earth release._
   [#535](https://github.com/sky-map-team/stardroid/issues/535))
 - CI configuration overhauled: Gradle dependency caching added, emulator tests run on a supported
   API level, and flaky retry logic improved
-- Migrated design documents from `designdocs/` to `docs/design/`
-- Enhanced tools/README.md with module overview
+- Migrated design documents from `designdocs/` to `stardroid-v1/docs/design/`
+- Enhanced stardroid-v1/tools/README.md with module overview
 - Modernized PR template with type-of-change checklist
-- Updated CLAUDE.md reference to `docs/design/sensors.md`
+- Updated CLAUDE.md reference to `stardroid-v1/docs/design/sensors.md`
 
 ### Removed
 - Old single-file `.github/ISSUE_TEMPLATE.md` (replaced by YAML forms)
@@ -173,9 +641,9 @@ _Earth release._
   navigation, caused by the new mandatory edge-to-edge rendering
   (fixes [#595](https://github.com/sky-map-team/stardroid/issues/595))
 
-## [1.11.0] - 2026-02-04
+## [1.11.0] Venus - 2026-02-04
 
-_Venus release._
+<img src="stardroid-v1/assets/splashscreens/1_11_0_venus_icon.png" width="80" alt="Venus" />
 
 ### Changed
 - Info cards now enabled by default for all users
@@ -190,9 +658,9 @@ _Venus release._
 - Import cleanup across multiple files
 - Test stability improvements
 
-## [1.10.11] - 2026-02-03
+## [1.10.11] Venus - 2026-02-03
 
-_Venus release._
+<img src="stardroid-v1/assets/splashscreens/1_10_11_venus_icon.png" width="80" alt="Venus" />
 
 ### Added
 - Educational info cards — tap objects in manual mode for fun facts and scientific data
@@ -225,9 +693,7 @@ _Venus release._
 - Layout issues making it hard to close the search box
 - Flaky `SplashScreenActivityTest`
 
-## [1.10.10] - 2026-01-20
-
-_Mercury release._
+## [1.10.10] Mercury - 2026-01-20
 
 ### Added
 - New Slovak translation — strings, arrays, help, celestial objects (@MilanSL)
@@ -298,9 +764,7 @@ _Mercury release._
 - Search control bar moved out of time travel layout
 - Sync issues and NPE crash on start
 
-## [1.10.0] - 2021-12-21
-
-_Comet Leonard release._
+## [1.10.0] Comet Leonard - 2021-12-21
 
 ### Added
 - Comet Leonard tracking with visibility dates and search support
@@ -379,9 +843,7 @@ _Comet Leonard release._
 - Temporary data hack for Neowise
 - Obsolete translations causing build warnings
 
-## [1.9.4] - 2020-07-17
-
-_Neowise release._
+## [1.9.4] Neowise - 2020-07-17
 
 ### Added
 - Comet Neowise location tracking

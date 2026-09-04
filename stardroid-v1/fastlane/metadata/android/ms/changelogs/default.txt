@@ -1,0 +1,1 @@
+<b><font color="#F67E81">Algoritma matahari dan bulan yang lebih tepat</font></b>Menggunakan algoritma yang lebih moden untuk kedudukan Matahari/Bulan bagi menjadikan masa gerhana lebih tepat lagi.

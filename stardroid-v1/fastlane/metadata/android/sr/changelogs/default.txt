@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Precizniji algoritam za Sunce i Mesec</font></b>
+Instaliran je moderniji algoritam za položaj Sunca/Meseca kako bi se vreme pomračenja učinilo još preciznijim.

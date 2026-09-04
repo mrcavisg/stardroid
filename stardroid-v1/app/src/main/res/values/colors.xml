@@ -1,0 +1,47 @@
+<resources>
+    <color name="black_overlay">#66000000</color>
+    <!-- Sky rendering layer colors -->
+    <color name="horizon_line">#78597C4A</color>
+    <!-- Cardinal/zenith/nadir labels share the horizon line's green so the horizon reads as one
+         element. Labels always render opaque (the renderer forces alpha), so only the RGB matters. -->
+    <color name="horizon_label">#78597C4A</color>
+    <color name="grid_line">#14BCEFF8</color>
+    <color name="sky_label">#FFE05C34</color>
+    <color name="planet_body">#14F67E81</color>
+    <!-- Generic status colours (good/ok/warning/bad/absent) used for diagnostics, sensors, etc. -->
+    <color name="status_good">#8BC34A</color>
+    <color name="status_ok">#FFEB3B</color>
+    <color name="status_warning">#FF9800</color>
+    <color name="status_bad">#E91E63</color>
+    <color name="status_absent">#ffa0a0a0</color>
+
+    <!-- Night-mode equivalents: red-shifted, brightness encodes severity (bright = good, dark = bad) -->
+    <color name="night_status_good">#FFDD6666</color>
+    <color name="night_status_ok">#FFAA4444</color>
+    <color name="night_status_warning">#FF883333</color>
+    <color name="night_status_bad">#FF662222</color>
+    <color name="night_status_absent">#FF552222</color>
+
+    <!-- Night mode UI colours -->
+    <color name="night_text_color">#FFCC4444</color>
+    <color name="night_link_color">#FFCC6666</color>
+    <color name="day_link_color">#FF33B5E5</color>
+    <color name="night_red_overlay">#66220000</color>
+    <color name="day_overlay">#66000000</color>
+    <color name="night_bar_bg">#20990000</color>
+    <color name="day_bar_bg">#20990099</color>
+    <color name="night_sidebar_bg">#FF660000</color>
+    <color name="day_divider_color">#FF444444</color>
+    <!-- Bright red MULTIPLY tint for enabled layer buttons in night mode -->
+    <color name="night_button_on_tint">#FFCC4444</color>
+    <!-- Near-black MULTIPLY tint for disabled layer buttons in night mode -->
+    <color name="night_button_off_tint">#FF2A0000</color>
+
+    <!-- Ecliptic (Star Gold #FF9F1C). The label is the full brand gold. The line is opaque (a
+         dimmed gold) and drawn behind the stars/constellations so the perpendicular graduation
+         ticks merge into it cleanly instead of compounding into bright patches where translucent
+         quads overlapped. The renderer reads all colours as standard ARGB and red-shifts both
+         automatically in night-vision mode. -->
+    <color name="ecliptic_label">#FFFF9F1C</color>
+    <color name="ecliptic_line">#FF735314</color>
+</resources>

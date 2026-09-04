@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Meer akkurate son- en maan-algoritme</font></b>
+Ons het 'n meer moderne algoritme vir Son/Maan-posisie geïnstalleer om verduisteringstye selfs akkurater te maak.

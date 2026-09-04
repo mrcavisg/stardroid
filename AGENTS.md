@@ -8,19 +8,73 @@ Sky Map is an open-source Android planetarium app that displays the night sky in
 device sensors and OpenGL rendering. Originally "Google Sky Map" (open-sourced 2011), now
 community-maintained. The internal codename "Stardroid" remains in package names.
 
-Codebase: Java and Kotlin, targeting Android SDK 26–36.
+This repository holds two applications:
+
+- **`stardroid-v1/`** — the legacy app (Java, Apache-2.0, Android SDK 26–36). See
+  [`stardroid-v1/AGENTS.md`](stardroid-v1/AGENTS.md) for its architecture, code style, and
+  testing conventions.
+- **`stardroid-v2/`** — the current rewrite (Kotlin only, GPLv3, minSdk 29). See
+  [`stardroid-v2/AGENTS.md`](stardroid-v2/AGENTS.md) for its architecture, code style,
+  licensing, and testing conventions.
+
+Most work happens inside one module or the other — check the relevant `AGENTS.md` there first.
+This root file covers only what's shared across both.
+
 github: https://github.com/sky-map-team/stardroid
 
-## Module Structure
+## Branching
 
-- **app/** - Main Android application (~171 source files)
-- **datamodel/** - Protocol buffer definitions for astronomical objects
-- **tools/** - Standalone utilities for converting star catalogs to binary protobuf format
+Always make code changes on a feature branch, never directly on `master`. Create a branch before
+starting any work:
 
-Read specs in `specs/` before undertaking complex investigations, starting with the overview.md file
-to know which specs to read.
+```
+git checkout -b feature/<short-description>
+```
+
+Documentation-only changes (`.md` files, troubleshooting guides, skills, etc.) may be committed
+directly to `master` without a feature branch.
+
+Only commit to `master` when explicitly instructed to do so.
+
+## Git Worktrees
+
+Five reusable worktrees live under `.worktrees/` in the repo root:
+
+| Worktree | Path | Placeholder branch |
+|---|---|---|
+| stardroid-alpha | `.worktrees/stardroid-alpha` | `worktree/stardroid-alpha` |
+| stardroid-beta | `.worktrees/stardroid-beta` | `worktree/stardroid-beta` |
+| stardroid-gamma | `.worktrees/stardroid-gamma` | `worktree/stardroid-gamma` |
+| stardroid-delta | `.worktrees/stardroid-delta` | `worktree/stardroid-delta` |
+| stardroid-epsilon | `.worktrees/stardroid-epsilon` | `worktree/stardroid-epsilon` |
+
+### Worktree lifecycle
+
+**1. Claim a worktree for a new task** — fetch latest master, then branch from it:
+```bash
+git fetch origin
+git -C .worktrees/stardroid-alpha checkout -b feature/my-task origin/master
+```
+
+**2. Reset a worktree when done** — return it to its placeholder branch so the feature branch
+can be deleted:
+```bash
+git -C .worktrees/stardroid-alpha checkout worktree/stardroid-alpha
+```
+After resetting all affected worktrees, run `/clean-branches` to delete the merged feature
+branches. That skill uses `git branch -d` (safe delete) and will skip any branch still checked
+out in a worktree.
+
+Each worktree already contains the build-critical files excluded from version control
+(`stardroid-v1/local.properties`, `stardroid-v1/app/local.properties`,
+`stardroid-v1/app/no-checkin.properties`, keystores, `stardroid-v1/fastlane/play-store-credentials.json`). If you add a new worktree, copy
+these files from the main worktree (`stardroid-v1/app/`) before building.
+
+`.worktrees/` is listed in `.gitignore` so worktree directories are never accidentally committed.
 
 ## Build Flavors
+
+Both modules share the same flavor scheme:
 
 - **gms** - Includes Google Play Services (Analytics, Location). Requires `no-checkin.properties`
   for release builds.
@@ -29,100 +83,13 @@ to know which specs to read.
 Always specify the flavor: use `assembleGmsDebug`, not `assembleDebug`. See the `/build` skill for
 all build, test, deploy, and data-generation commands.
 
-## Architecture
+## Strings
 
-See `docs/ARCHITECTURE.md` for a full overview.
-
-### Dependency Injection (Dagger 2)
-
-Two-level hierarchy (not Hilt):
-
-1. **ApplicationComponent** - Singleton, created in `StardroidApplication`
-2. **Activity Components** - Per-activity scoped (e.g. `DynamicStarMapComponent`)
-
-#### ⚠️ Scoping pitfall
-
-Do **not** use `@PerActivity` scope for resources released/re-created across `onPause()`/
-`onResume()` (e.g. `MediaPlayer`, file handles). Dagger caches the first instance permanently —
-after `onPause()` releases it, the next `onResume()` gets the dead object.
-
-**Rule:** Resources with an `onResume`/`onPause` lifecycle must use **unscoped** `@Provides` so
-`Provider.get()` creates a fresh instance each call. Prefer `MediaPlayer.prepareAsync()` over
-blocking `MediaPlayer.create()` to avoid ANRs.
-
-### Rendering Pipeline
-
-Layers → AstronomicalSource → Primitives (Point/Line/Text/Image) → OpenGL via `RendererController` /
-`SkyRenderer`. See `docs/ARCHITECTURE.md` for full detail.
-
-### Coordinate Transformation
-
-`AstronomerModel` maps phone sensor coordinates to celestial RA/Dec via a transformation matrix
-derived from zenith and North vectors. See `docs/design/sensors.md` for the math.
-
-### Data Flow
-
-```
-Raw catalogs → tools/Main.java → ASCII protobuf → binary protobuf → app/src/main/assets/
-                (StellarAsciiProtoWriter)  (AsciiToBinaryProtoWriter)
-```
-
-Runtime: Binary files loaded by `AbstractFileBasedLayer`, deserialized into
-`ProtobufAstronomicalSource`.
-
-### Adding Dialog Fragments
-
-Follow the pattern in `AbstractDynamicStarMapModule`:
-
-1. Add a `@Provides @PerActivity` method returning `new XyzDialogFragment()`
-2. Add `XyzDialogFragment.ActivityComponent` to `DynamicStarMapComponent` interface
-3. Inject the fragment in `DynamicStarMapActivity` and handle in `onOptionsItemSelected`
-
-## Code Style
-
-No copyright header on new files.
-
-Follow the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html):
-
-- 100 character line wrap
-- Do **not** prefix member variables with `m` (unlike common Android convention)
-- Use Java 17 toolchain features
-
-### Strings
 Remember to properly escape any text added as Android resource strings (e.g. ' must be escaped
-with a single backslash as \')
+with a single backslash as \'). New strings should be in *US English* - translations to
+other locales are handled by a separate pipeline after features are implemented.
 
-### Colors
-
-Never hardcode color integers in Java/Kotlin. Declare in `app/src/main/res/values/colors.xml` and
-reference via `R.color.*`.
-
-Status colors follow a two-tier naming scheme:
-| Resource | Day-mode meaning | Night-mode pair |
-|---|---|---|
-| `status_good` | Green — everything OK | `night_status_good` |
-| `status_ok` | Yellow — acceptable | `night_status_ok` |
-| `status_warning` | Orange — degraded | `night_status_warning` |
-| `status_bad` | Red — error/missing | `night_status_bad` |
-| `status_absent` | Grey — hardware absent | `night_status_absent` |
-
-Night-mode variants are red-shifted; brighter = better (mirrors day-mode meaning).
-
-## Key Files
-
-- [`StardroidApplication.kt`](app/src/main/java/com/google/android/stardroid/StardroidApplication.kt) - Application entry point, Dagger initialization, sensor detection
-- [
-  `DynamicStarMapActivity.java`](app/src/main/java/com/google/android/stardroid/activities/DynamicStarMapActivity.java) -
-  Main interactive star map activity
-- [
-  `AstronomerModel.java`](app/src/main/java/com/google/android/stardroid/control/AstronomerModel.java) -
-  Coordinate transformation logic
-- [`SkyRenderer.java`](app/src/main/java/com/google/android/stardroid/renderer/SkyRenderer.java) -
-  OpenGL rendering
-- [`source.proto`](datamodel/src/main/proto/source.proto) - Protocol buffer schema for astronomical
-  objects
-
-## Testing
-
-Unit tests: JUnit 4, Robolectric, Mockito, Truth. Instrumented: Espresso.
-Structure mirrors main source: `app/src/test/` and `app/src/androidTest/`.
+For v2 (`stardroid-v2/`), that pipeline (the `tm` CLI, driven by `.tmconfig.toml`) is now
+live — see [`stardroid-v2/AGENTS.md`](stardroid-v2/AGENTS.md#translations) for how and when
+to run it. v1 has its own longer-standing `tm` setup; see
+[`stardroid-v1/AGENTS.md`](stardroid-v1/AGENTS.md) for its conventions.

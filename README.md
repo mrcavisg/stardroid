@@ -1,11 +1,15 @@
-# <img src="https://raw.githubusercontent.com/sky-map-team/stardroid/refs/heads/master/assets/skymap-logo-large.png" width="45" height="45" align="center"> Sky Map
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+# <img src="https://raw.githubusercontent.com/sky-map-team/stardroid/refs/heads/master/stardroid-v1/assets/skymap-logo-large.png" width="45" height="45" align="center"> Sky Map
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://travis-ci.org/sky-map-team/stardroid.svg?branch=master)](https://travis-ci.org/sky-map-team/stardroid)
-[![Buy Me A Coffee](https://img.shields.io/badge/Support-Buy%20Me%20A%20Coffee-orange?style=flat-square&logo=buy-me-a-coffee)](https://www.buymeacoffee.com/skymapdevs)
+[![Buy Me A Coffee](https://img.shields.io/badge/Support-Buy%20Me%20A%20Coffee-orange?style=flat-square&logo=buy-me-a-coffee)](https://www.buymeacoffee.com/skymapdevs?utm_source=github&utm_medium=readme&utm_campaign=readme_badge)
 
 http://stardroid.app
 
-Sky Map is the open-source astronomy Android app built for the community.  You can download the official builds from the [Google Play Store](https://play.google.com/store/apps/details?id=com.google.android.stardroid) or from [F-Droid](https://f-droid.org/en/packages/com.google.android.stardroid/).
+Sky Map is the open-source astronomy Android app built for the community.
+
+
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="60">](https://play.google.com/store/apps/details?id=com.google.android.stardroid)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="60">](https://f-droid.org/en/packages/com.google.android.stardroid/)
 
 ## Need Help?
 > Check out [help.md](help.md) and [troubleshooting.md](troubleshooting.md) for accuracy issues and why 'compass calibration' doesn't do what you think it does.
@@ -20,7 +24,11 @@ Sky Map has a *long* history, launching as Google Sky Map on the very first Andr
 "Stardroid" was the internal name - you can see it's still used as an identifier in the code. Back in the day Google's lawyercats were concerned that 'stardroid' might attract the wrath of, let's say, followers of the Dark Side of the Force so we were _strongly_ encouraged not to call it that. Plus, Google likes to name products after what they are (Photos, Calendar, Docs...). So, Sky Map it is.
 
 ### Why does it lack feature _X_ or look so dated?
-Android has evolved significantly since 2009. While most of the code has been rewritten since its Google days, the architecture reflects its origins. We are currently working on a complete modernization of the app. In the meantime, we are continually inspired by the community of users who still find joy in its simplicity and quirks.
+
+> Check out Sky Map v2! It's a complete rewrite and not only does it look more like a modern Android app but it's a solid platform to build new features on. Expect more features very soon!
+
+If you're still on v1 though, Android has evolved significantly since 2009. While most of the code has been rewritten since its Google days, the architecture reflects its origins which is why it looks somewhat retro.
+Nevertheless, we are continually inspired by the community of users who still find joy in its simplicity and quirks.
 
 ### How can we help?
 I'm glad you asked! We have a section on that below.
@@ -28,13 +36,13 @@ I'm glad you asked! We have a section on that below.
 ---
 ## Support the Project
 
-<a href="https://www.buymeacoffee.com/skymapdevs" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+<a href="https://www.buymeacoffee.com/skymapdevs?utm_source=github&utm_medium=readme&utm_campaign=readme_support" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 Sky Map is a labor of love maintained in our spare time by a couple of ex-Googlers here in Pittsburgh. It is free, open-source, ad-free and we don't track you or sell your data. 
 
 If you enjoy using Sky Map, there are several ways to help keep the project alive:
 
-* **Donations:** [Buy Me a Coffee](https://www.buymeacoffee.com/skymapdevs) — Every coffee helps keep the servers running and the code flowing!
+* **Donations:** [Buy Me a Coffee](https://www.buymeacoffee.com/skymapdevs?utm_source=github&utm_medium=readme&utm_campaign=readme_support) — Every coffee helps keep the servers running and the code flowing!
 * **Join the beta and give us feedback!** Visit the [Play Store](https://play.google.com/store/apps/details?id=com.google.android.stardroid) on your phone.
 * **Star the Repo:** It costs nothing and helps others find the project.
 * **Contribute:** See the [Contributing guide](CONTRIBUTING.md) or [report an issue](https://github.com/sky-map-team/stardroid/issues/).
@@ -47,17 +55,46 @@ If you enjoy using Sky Map, there are several ways to help keep the project aliv
 
 # Contributing
 
-Bug fixes, dependency upgrades, and translations are always welcome. For major changes or new features, **please [email us](mailto:skymapdevs@gmail.com) first** — we may have a different vision and it would be a shame for your work to go to waste.
+IMPORTANT: Contributions are currently closed! The V1 codebase has been retired and any contributions would be wasted. Watch out for ways to contribute in V2 once it's a little more settled.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for full details on build instructions, coding style, and how to submit a PR.
+~~Bug fixes, dependency upgrades, and translations are always welcome. For major changes or new features, **please [email us](mailto:skymapdevs@gmail.com) first** — we may have a different vision and it would be a shame for your work to go to waste.~~
+
+~~See [CONTRIBUTING.md](CONTRIBUTING.md) for full details on build instructions, coding style, and how to submit a PR.~~
+
+---
+
+# Licensing, Ownership & Trademarks
+
+Sigh. I'm sorry we have to do this. But this legalese is to prevent lazy people taking the source code and releasing a clone of Sky Map that is just stuffed full of ads. Yes people do this. It adds no value to the world and just lines their pockets.
+
+## 1. Source Code License
+The source code of this project is a derivative work of the original open-source Sky Map application (formerly Google Sky Map). The repository holds two applications:
+
+* **`stardroid-v1/`** — the legacy app. Licensed under the **Apache License, Version 2.0**.
+  Original copyright headers and notices within inherited files have been preserved as
+  required by the Apache 2.0 terms.
+* **`stardroid-v2/`** — the current rewrite, authored by **Penterakt LLC**. Licensed under the
+  **GNU General Public License v3.0 (GPLv3)**, with an additional permission under GPLv3 §7 for
+  distribution through app stores. See [`stardroid-v2/LICENSE.md`](stardroid-v2/LICENSE.md) for
+  the full terms and [`stardroid-v2/NOTICE.md`](stardroid-v2/NOTICE.md) for its own
+  Apache-2.0 provenance.
+* **Combined Work:** The project as a combined distribution is compiled and distributed under the terms of the **GPLv3**. Any third-party forks, modifications, or derivative versions of this combined codebase must be completely open-sourced under the GPLv3.
+
+## 2. Branding & Visual Assets (All Rights Reserved)
+The open-source code licenses (GPLv3 and Apache 2.0) apply to the functional source code, resources, and translations. A short, explicitly enumerated list of **brand identity assets** — launcher and notification icons, onboarding artwork, and similar identity marks — is reserved as **Copyright © 2026 Penterakt LLC, All Rights Reserved**. For `stardroid-v2/`, the authoritative list is the `[arr]` section of [`stardroid-v2/ASSET-LICENSES.txt`](stardroid-v2/ASSET-LICENSES.txt); nothing else in that module is reserved.
+
+Reserved brand assets are **NOT** open-source and may not be used, duplicated, or modified in any third-party fork or distribution without express written consent from [Penterakt LLC](http://penterakt.io).
+
+*(Note: This reservation excludes any public-domain or open-licensed scientific datasets, such as NASA/ESA astronomical imagery or public star catalogs, which remain governed by their original respective terms.)*
+
+## 3. Trademark Notice
+The app name, project titles, logos, and associated branding elements constitute protected trade names and trademarks of [**Penterakt LLC**](http://penterakt.io). 
+
+Subject to the platform terms of the public code hosting service (e.g., GitHub's permission to view and fork repositories on-platform for personal use), you are strictly prohibited from using these trademarks or protected app names in any independent fork, clone, or marketplace distribution. Any independent compilation or distribution of this application published to any app store (such as Google Play, F-Droid, or Amazon Appstore) must be entirely re-branded under a unique identity.
+
+---
 
 # Fun
 ## Sky Map Prototype (2009)
 
-![Sky Map Prototype (2009)](./assets/SkyMap_prototype.png)
-
-## Star Chart
-Appropriately, for a star chart app, here's a star chart:
-[![Star History Chart](https://app.repohistory.com/api/svg?repo=sky-map-team/stardroid&type=Timeline&background=0D1117&color=f88d62)](https://app.repohistory.com/star-history)
-
-
+![Sky Map Prototype (2009)](./stardroid-v1/assets/SkyMap_prototype.png)

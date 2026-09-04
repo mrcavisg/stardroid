@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Algoritm mai precis pentru Soare și Lună</font></b>
+Am implementat un algoritm mai modern pentru poziția Soarelui/Lunii pentru a face calculele eclipselor și mai precise.

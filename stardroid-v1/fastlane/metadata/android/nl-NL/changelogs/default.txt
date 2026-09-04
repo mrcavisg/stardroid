@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Nauwkeuriger algoritme voor zon en maan</font></b>
+Een moderner algoritme geïmplementeerd voor de positie van de zon en maan om de tijden van zons- en maansverduisteringen nog nauwkeuriger te maken.

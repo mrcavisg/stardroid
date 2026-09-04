@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Mas tumpak na algorithm para sa araw at buwan</font></b>
+Nag-install ng mas modernong algorithm para sa posisyon ng Araw/Buwan upang mas maging tumpak ang mga oras ng eklipse.

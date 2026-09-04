@@ -1,7 +1,0 @@
-<b><font color="#F67E81">Neu</font></b>
-  Fotos in allen Infokarten — Planeten, Sterne & Nebel.
-  T Coronae Borealis & Eta Carinae Nebel jetzt im Katalog.
-  Vollständiger Nachtmodus: alle Dialoge jetzt rot.
-  Messier-Symbole, Zeitreise-Events, Kompassoffset & Credits.
-<b><font color="#F67E81">Behoben</font></b>
-  Mondsichelwinkel & Navigationsleisten-Überlappung.

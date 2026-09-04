@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Pontosabb Nap- és Hold-algoritmus</font></b>
+Egy modernebb algoritmust telepítettünk a Nap és Hold pozíciójához, hogy a fogyatkozások időzítése még pontosabb legyen.

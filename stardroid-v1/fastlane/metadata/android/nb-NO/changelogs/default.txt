@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Mer nøyaktig sol- og månealgoritme</font></b>
+Implementert en mer moderne algoritme for sol- og måneposisjon for å gjøre formørkelsestidspunkter enda mer nøyaktige.

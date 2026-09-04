@@ -1,0 +1,2 @@
+<b><font color="#F67E81">Algorisme del Sol i la Lluna més precís</font></b>
+S'ha instal·lat un algorisme més modern per a la posició del Sol/Lluna per fer que els moments dels eclipsis siguin encara més precisos.
